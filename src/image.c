@@ -1320,8 +1320,10 @@ image load_image(char *filename, int w, int h, int c)
     image out = load_image_cv(filename, c);
 #else
     image out = load_image_stb(filename, c);
+    #ifdef BGR
+    rgbgr_image(out); 
+    #endif  
 #endif
-
     if((h && w) && (h != out.h || w != out.w)){
         image resized = resize_image(out, w, h);
         free_image(out);
